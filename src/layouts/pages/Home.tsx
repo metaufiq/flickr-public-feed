@@ -5,6 +5,7 @@ import { ImageBackground, StyleSheet, TouchableOpacity, View } from "react-nativ
 import { FlatGrid } from "react-native-super-grid"
 import feedsService from "../../services/feedsService"
 import React from 'react';
+import FeedType from "../../config/types/domain/FeedType"
 
 interface mainProps {
     navigation: StackNavigationProp<any, any>;
@@ -18,9 +19,11 @@ const Home = (props: mainProps)=>{
      if (res.isError) {
        return
      }
+     console.log(res.items);
+     
      setFeeds(res.items);
     }
-    const toFeedDetail = async (feed: any) => {
+    const toFeedDetail = async (feed: FeedType) => {
       props.navigation.push('FeedDetail', {feed})
       
     }
@@ -34,7 +37,7 @@ const Home = (props: mainProps)=>{
         data={feeds}
         style={styles.gridView}
         spacing={5}
-        renderItem={({ item, index }: any) => (
+        renderItem={({ item, index }: {item:FeedType, index: number}) => (
           <TouchableOpacity onPress={()=>toFeedDetail(item)}>
             <View style={[styles.itemContainer]}>
                   <ImageBackground source={{uri: item?.media?.m}} style={styles.image}>
