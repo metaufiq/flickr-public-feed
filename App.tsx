@@ -8,7 +8,7 @@
  * @format
  */
 
- import React from 'react';
+ import React, { useEffect } from 'react';
  import {
    SafeAreaView,
    ScrollView,
@@ -26,11 +26,19 @@
    LearnMoreLinks,
    ReloadInstructions,
  } from 'react-native/Libraries/NewAppScreen';
+import feedsService from './src/services/feedsService';
 
  const Section: React.FC<{
    title: string;
  }> = ({children, title}) => {
    const isDarkMode = useColorScheme() === 'dark';
+   const getFeeds = async ()=>{
+    const feeds = await feedsService.publicPhotos({})
+    console.log(feeds);
+   }
+   useEffect(()=>{
+    getFeeds()
+  })
    return (
      <View style={styles.sectionContainer}>
        <Text
