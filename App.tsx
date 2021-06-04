@@ -32,13 +32,7 @@ import feedsService from './src/services/feedsService';
    title: string;
  }> = ({children, title}) => {
    const isDarkMode = useColorScheme() === 'dark';
-   const getFeeds = async ()=>{
-    const feeds = await feedsService.publicPhotos({})
-    console.log(feeds);
-   }
-   useEffect(()=>{
-    getFeeds()
-  })
+
    return (
      <View style={styles.sectionContainer}>
        <Text
@@ -69,7 +63,13 @@ import feedsService from './src/services/feedsService';
    const backgroundStyle = {
      backgroundColor: isDarkMode ? Colors.darker : Colors.lighter,
    };
-
+   const getFeeds = async ()=>{
+    const feeds = await feedsService.publicPhotos({})
+    console.log(feeds);
+   }
+   useEffect(()=>{
+    getFeeds()
+  },[])
    return (
      <SafeAreaView style={backgroundStyle}>
        <StatusBar barStyle={isDarkMode ? 'light-content' : 'dark-content'} />

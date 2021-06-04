@@ -4,6 +4,7 @@ const setResponseFormat = async (config: AxiosRequestConfig) => {
   switch (config.method) {
     case 'get':
       config.params.format = 'json';
+      config.params.nojsoncallback = 1
       break;
 
     default:
