@@ -33,7 +33,7 @@ const Home = (props: mainProps) => {
   }, [])
   return (
     <View style={{ flex: 1 }}>
-      <HomeAppBar></HomeAppBar>
+      <HomeAppBar onRefresh={getFeeds}></HomeAppBar>
       <FlatGrid
         itemDimension={150}
         data={feeds}
