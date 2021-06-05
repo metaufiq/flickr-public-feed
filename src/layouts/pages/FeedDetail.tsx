@@ -1,10 +1,11 @@
 import { RouteProp } from "@react-navigation/core";
 import { StackNavigationProp } from "@react-navigation/stack";
 import { Button, Image, ImageBackground, ScrollView, StyleSheet, Text, TouchableOpacity, View } from "react-native"
-import React from 'react';
+import React, { useState } from 'react';
 import FeedType from "../../config/types/domain/FeedType";
 import WebView from "react-native-webview";
 import BottomButtonCard from "../molecules/BottomButtonCard";
+import LikeButton from "../atom/LikeButton";
 
 interface mainProps {
   navigation: StackNavigationProp<any, any>;
@@ -13,6 +14,7 @@ interface mainProps {
 const FeedDetail = (props: mainProps) => {
 
   const { feed } = props.route.params
+  const [like, setLike] = useState(false);
   const toHome = async () => {
     props.navigation.push('Home')
   }
@@ -30,12 +32,21 @@ const FeedDetail = (props: mainProps) => {
     });
     return result
   }
+  const onLikeFeed = (like: boolean) => {
+    setLike((like) => !like)
+  }
   const tags = getFormatedTags();
   return (
     <View style={styles.mainContainer}>
       <ImageBackground source={{ uri: feed.media.m }} style={[styles.imageContainer]}>
         <View style={styles.tagsContainer}>
-          <Text style={styles.tags}>{tags}</Text>
+          <View style={styles.tagsLeftContainer}>
+            <Text style={styles.tags}>{tags}</Text>
+          </View>
+          <View style={styles.tagsRightContainer}>
+            <LikeButton clickLike={onLikeFeed} like={like}></LikeButton>
+
+          </View>
         </View>
       </ImageBackground>
       <View style={styles.cardContainer}>
@@ -44,7 +55,7 @@ const FeedDetail = (props: mainProps) => {
           <Text style={{ fontSize: 30 }}>{feed.title}</Text>
           <Text style={{ fontSize: 10 }}>published by</Text>
           <Text style={{ fontSize: 10 }}>{feed.author}</Text>
-        </View> 
+        </View>
       </View>
       <BottomButtonCard label="Visit Flickr" onClick={toFlickrWebView} />
     </View>
@@ -54,12 +65,13 @@ const FeedDetail = (props: mainProps) => {
 const styles = StyleSheet.create({
   mainContainer: { flex: 6 },
   imageContainer: {
-    height: 250,
     justifyContent: 'flex-end',
     flex: 2
   },
-  tagsContainer: { alignItems: 'flex-start', paddingVertical: 10, paddingHorizontal: 5, backgroundColor: 'black', opacity: 0.8, justifyContent: 'center' },
-  tags: { color: 'white' },
+  tagsContainer: { paddingVertical: 10, paddingHorizontal: 8, backgroundColor: 'black', opacity: 0.8, alignContent:'center', flexDirection: 'row', height:'25%' },
+  tagsLeftContainer: { alignContent:'flex-start',justifyContent:'center', flex:2  },
+  tagsRightContainer: {alignSelf:'flex-end', flex:1 , paddingRight: 20, paddingTop:5 },
+  tags: { color: 'white',justifyContent:'center' },
   cardContainer: { flex: 1.5 },
   cardContent: { alignItems: 'center', paddingTop: 20, paddingHorizontal: 50, },
   ButtonContainer: { width: '100%', marginTop: 15, position: 'absolute', bottom: 0, paddingBottom: 10, paddingHorizontal: 5 }
