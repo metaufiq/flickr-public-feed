@@ -6,65 +6,66 @@ import { FlatGrid } from "react-native-super-grid"
 import feedsService from "../../services/feedsService"
 import React from 'react';
 import FeedType from "../../config/types/domain/FeedType"
+import HomeAppBar from "../organisms/home/HomeAppBar"
 
 interface mainProps {
-    navigation: StackNavigationProp<any, any>;
-    route: RouteProp<any, any>;
+  navigation: StackNavigationProp<any, any>;
+  route: RouteProp<any, any>;
 }
-const Home = (props: mainProps)=>{
+const Home = (props: mainProps) => {
 
-    const [feeds, setFeeds] = useState([]) 
-    const getFeeds = async ()=>{
-     const res = await feedsService.publicPhotos({})
-     if (res.isError) {
-       return
-     }
-     console.log(res.items);
-     
-     setFeeds(res.items);
+  const [feeds, setFeeds] = useState([])
+  const getFeeds = async () => {
+    const res = await feedsService.publicPhotos({})
+    if (res.isError) {
+      return
     }
-    const toFeedDetail = async (feed: FeedType) => {
-      props.navigation.push('FeedDetail', {feed})
-      
-    }
-    useEffect(()=>{
-     getFeeds()
-   },[])
-    return(
-        <View style={{flex:1}}>
-        <FlatGrid
+    console.log(res.items);
+
+    setFeeds(res.items);
+  }
+  const toFeedDetail = async (feed: FeedType) => {
+    props.navigation.push('FeedDetail', { feed })
+
+  }
+  useEffect(() => {
+    getFeeds()
+  }, [])
+  return (
+    <View style={{ flex: 1 }}>
+      <HomeAppBar></HomeAppBar>
+      <FlatGrid
         itemDimension={150}
         data={feeds}
         style={styles.gridView}
         spacing={5}
-        renderItem={({ item, index }: {item:FeedType, index: number}) => (
-          <TouchableOpacity onPress={()=>toFeedDetail(item)}>
+        renderItem={({ item, index }: { item: FeedType, index: number }) => (
+          <TouchableOpacity onPress={() => toFeedDetail(item)}>
             <View style={[styles.itemContainer]}>
-                  <ImageBackground source={{uri: item?.media?.m}} style={styles.image}>
-                  </ImageBackground>
+              <ImageBackground source={{ uri: item?.media?.m }} style={styles.image}>
+              </ImageBackground>
             </View>
           </TouchableOpacity>
-  
+
         )}
-        />
-       </View>
-    )
+      />
+    </View>
+  )
 }
 
 const styles = StyleSheet.create({
-    gridView: {
-      marginTop: 20,
-      flex: 10,
-    },
-    itemContainer: {
-      borderRadius: 5,
-      height: 250,
-    },
-    image: {
-      flex: 1,
-      justifyContent: 'flex-end',
-      resizeMode: "cover",
-      padding: 10,
-    }
-  });
+  gridView: {
+    flex: 10,
+  },
+  itemContainer: {
+    borderRadius: 5,
+    height: 250,
+  },
+  image: {
+    flex: 1,
+    justifyContent: 'flex-end',
+    resizeMode: "cover",
+    padding: 10,
+  }
+});
 export default Home;
