@@ -2,7 +2,6 @@ import { StyleSheet, Text, View } from "react-native"
 import React, { useRef } from 'react'
 import RefreshButton from "../../atom/RefreshButton"
 import Search from "react-native-search-box"
-import CustomTextInput from "../../atom/CustomTextInput"
 interface mainProps {
     onRefresh: Function
     onSearch: Function

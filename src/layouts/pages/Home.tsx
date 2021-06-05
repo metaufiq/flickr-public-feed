@@ -15,15 +15,16 @@ interface mainProps {
 const Home = (props: mainProps) => {
 
   const [feeds, setFeeds] = useState([])
-  const getFeeds = async () => {
-    const res = await feedsService.publicPhotos({})
+  const getFeeds = async (tags: string = "") => {
+    const params = {tags}
+    const res = await feedsService.publicPhotos(params)
     if (res.isError) {
       return
     }
-    console.log(res.items);
 
     setFeeds(res.items);
   }
+  
   const toFeedDetail = async (feed: FeedType) => {
     props.navigation.push('FeedDetail', { feed })
 
@@ -33,7 +34,7 @@ const Home = (props: mainProps) => {
   }, [])
   return (
     <View style={{ flex: 1 }}>
-      <HomeAppBar onRefresh={getFeeds}></HomeAppBar>
+      <HomeAppBar onRefresh={getFeeds} onSearch={getFeeds}></HomeAppBar>
       <FlatGrid
         itemDimension={150}
         data={feeds}
