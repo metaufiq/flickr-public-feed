@@ -1,6 +1,7 @@
 import { StackNavigationOptions } from "@react-navigation/stack";
 import { ComponentClass, FunctionComponent } from "react";
 import FeedDetail from "../layouts/pages/FeedDetail";
+import FlickrWebView from "../layouts/pages/FlickrWebView";
 import Home from "../layouts/pages/Home";
 
 interface StackRoute {
@@ -14,6 +15,11 @@ component:Home
 },
 {name:'FeedDetail',
 component:FeedDetail
+},
+
+{
+  name: 'FlickrWebView',
+  component: FlickrWebView
 }
 
 ]
