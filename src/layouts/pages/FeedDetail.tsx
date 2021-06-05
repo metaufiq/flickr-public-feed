@@ -1,9 +1,8 @@
 import { RouteProp } from "@react-navigation/core";
 import { StackNavigationProp } from "@react-navigation/stack";
-import { Button, Image, ImageBackground, ScrollView, StyleSheet, Text, TouchableOpacity, View } from "react-native"
+import { ImageBackground,  StyleSheet, Text, View } from "react-native"
 import React, { useState } from 'react';
 import FeedType from "../../config/types/domain/FeedType";
-import WebView from "react-native-webview";
 import BottomButtonCard from "../molecules/BottomButtonCard";
 import LikeButton from "../atom/LikeButton";
 
