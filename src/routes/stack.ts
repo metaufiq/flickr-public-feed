@@ -3,6 +3,8 @@ import { ComponentClass, FunctionComponent } from "react";
 import FeedDetail from "../layouts/pages/FeedDetail";
 import FlickrWebView from "../layouts/pages/FlickrWebView";
 import Home from "../layouts/pages/Home";
+import BottomNavigation from "./BottomNavigation";
+import bottomBarRoute from "./BottomNavigation";
 
 interface StackRoute {
     name: string;
@@ -10,8 +12,8 @@ interface StackRoute {
     component: ComponentClass<any, any> | FunctionComponent<any>;
   }
 const stack: StackRoute[] = [
-{name:'Home',
-component:Home
+{name:'BottomNavigation',
+component:BottomNavigation
 },
 {name:'FeedDetail',
 component:FeedDetail

@@ -15,7 +15,7 @@ const FeedDetail = (props: mainProps) => {
   const { feed } = props.route.params
   const [like, setLike] = useState(false);
   const toHome = async () => {
-    props.navigation.push('Home')
+    props.navigation.push('BottomNavigation')
   }
   const toFlickrWebView = async () => {
     props.navigation.push('FlickrWebView', { link: feed.link })
