@@ -1,12 +1,9 @@
 import { RouteProp } from "@react-navigation/core"
 import { StackNavigationProp } from "@react-navigation/stack"
-import { useEffect, useState } from "react"
-import { ImageBackground, StyleSheet, TouchableOpacity, View } from "react-native"
-import { FlatGrid } from "react-native-super-grid"
-import publicFeedsService from "../../services/publicFeedsService"
-import React from 'react';
+import React, { useEffect, useState } from 'react'
+import { StyleSheet } from "react-native"
 import FeedType from "../../config/types/domain/FeedType"
-import HomeAppBar from "../organisms/home/HomeAppBar"
+import publicFeedsService from "../../services/publicFeedsService"
 import Feeds from "../templates/Feeds"
 
 interface mainProps {
