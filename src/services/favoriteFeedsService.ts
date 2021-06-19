@@ -46,7 +46,7 @@ const list = async ()=>{
             data[entry[0]] = entry[1]
         })
         return data;
-    })
+    }) as FeedType[];
     return res;
 }
 

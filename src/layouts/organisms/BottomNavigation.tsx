@@ -3,6 +3,7 @@ import React, { ComponentClass, FunctionComponent } from 'react';
 import { withTheme } from 'react-native-paper';
 import AntDesign from 'react-native-vector-icons/AntDesign';
 import Foundation from 'react-native-vector-icons/Foundation';
+import Favorite from '../pages/Favorite';
 import Home from '../pages/Home';
 
 interface BottomBarRoute {
@@ -29,7 +30,7 @@ const bottomBarRoute: BottomBarRoute[] = [
   },
   {
     name: 'Favorite',
-    component: Home,
+    component: Favorite,
     options: {
       tabBarLabel: 'Favorite',
       tabBarIcon: (icon) => (
