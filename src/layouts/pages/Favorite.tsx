@@ -5,7 +5,7 @@ import { StyleSheet } from "react-native"
 import { useQuery } from "react-query"
 import FeedType from "../../config/types/domain/FeedType"
 import favoriteFeedsService from "../../services/favoriteFeedsService"
-import Feeds from "../templates/Feeds"
+import Feeds from "../organisms/Feeds"
 
 interface mainProps {
   navigation: StackNavigationProp<any, any>;

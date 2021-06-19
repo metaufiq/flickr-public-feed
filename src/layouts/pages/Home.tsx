@@ -1,10 +1,11 @@
 import { RouteProp } from "@react-navigation/core"
 import { StackNavigationProp } from "@react-navigation/stack"
 import React, { useEffect, useState } from 'react'
-import { StyleSheet } from "react-native"
+import { StyleSheet, View } from "react-native"
 import FeedType from "../../config/types/domain/FeedType"
 import publicFeedsService from "../../services/publicFeedsService"
-import Feeds from "../templates/Feeds"
+import HomeAppBar from "../organisms/home/HomeAppBar"
+import Feeds from "../organisms/Feeds"
 
 interface mainProps {
   navigation: StackNavigationProp<any, any>;
@@ -14,7 +15,7 @@ const Home = (props: mainProps) => {
 
   const [feeds, setFeeds] = useState([])
   const getFeeds = async (tags: string = "") => {
-    const params = {tags}
+    const params = { tags }
     const res = await publicFeedsService.list(params)
     if (res.isError) {
       return
@@ -22,7 +23,7 @@ const Home = (props: mainProps) => {
 
     setFeeds(res.items);
   }
-  
+
   const toFeedDetail = async (feed: FeedType) => {
     props.navigation.push('FeedDetail', { feed })
   }
@@ -30,27 +31,20 @@ const Home = (props: mainProps) => {
     getFeeds()
   }, [])
   return (
-    <Feeds
-      feeds={feeds}
-      getFeeds={getFeeds}
-      onClickFeed={toFeedDetail}
-    />
+    <View style={styles.mainContainer}>
+      <HomeAppBar onRefresh={getFeeds} onSearch={getFeeds}></HomeAppBar>
+      <Feeds
+        feeds={feeds}
+        onClickFeed={toFeedDetail}
+      />
+    </View>
+
   )
 }
 
 const styles = StyleSheet.create({
-  gridView: {
-    flex: 10,
-  },
-  itemContainer: {
-    borderRadius: 5,
-    height: 250,
-  },
-  image: {
-    flex: 1,
-    justifyContent: 'flex-end',
-    resizeMode: "cover",
-    padding: 10,
+  mainContainer:{
+    flex:1
   }
 });
 export default Home;

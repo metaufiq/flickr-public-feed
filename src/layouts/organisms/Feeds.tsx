@@ -1,20 +1,19 @@
 import React from 'react'
+import { Fragment } from 'react'
 import { ImageBackground, StyleSheet, TouchableOpacity, View } from "react-native"
 import { FlatGrid } from "react-native-super-grid"
 import FeedType from "../../config/types/domain/FeedType"
-import HomeAppBar from "../organisms/home/HomeAppBar"
+import HomeAppBar from "./home/HomeAppBar"
 
 interface mainProps {
   feeds: FeedType[];
-  getFeeds?: Function;
   onClickFeed: Function;
 }
 const Feeds = (props: mainProps) => {
 
 
   return (
-    <View style={{ flex: 1 }}>
-      {props.getFeeds && <HomeAppBar onRefresh={props.getFeeds} onSearch={props.getFeeds}></HomeAppBar>}
+    <Fragment>
       <FlatGrid
         itemDimension={150}
         data={props.feeds}
@@ -30,7 +29,7 @@ const Feeds = (props: mainProps) => {
 
         )}
       />
-    </View>
+    </Fragment>
   )
 }
 
