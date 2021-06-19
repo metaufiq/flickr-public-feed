@@ -19,7 +19,7 @@ const HomeAppBar = (props: mainProps) => {
         <View>
             <View style={styles.mainContainer}>
                 <View style={styles.containerLeft}>
-                    <Text style={{color:'white', fontSize: 20}}>Flickr</Text>
+                    <Text style={{color:'white', fontSize: 20}}>Public Flickr</Text>
                 </View>
                 <View style={styles.containerRight}>
                     <RefreshButton onRefresh={props.onRefresh}></RefreshButton>
