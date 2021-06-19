@@ -3,7 +3,7 @@ import { StackNavigationProp } from "@react-navigation/stack"
 import { useEffect, useState } from "react"
 import { ImageBackground, StyleSheet, TouchableOpacity, View } from "react-native"
 import { FlatGrid } from "react-native-super-grid"
-import feedsService from "../../services/feedsService"
+import publicFeedsService from "../../services/publicFeedsService"
 import React from 'react';
 import FeedType from "../../config/types/domain/FeedType"
 import HomeAppBar from "../organisms/home/HomeAppBar"
@@ -17,7 +17,7 @@ const Home = (props: mainProps) => {
   const [feeds, setFeeds] = useState([])
   const getFeeds = async (tags: string = "") => {
     const params = {tags}
-    const res = await feedsService.publicPhotos(params)
+    const res = await publicFeedsService.list(params)
     if (res.isError) {
       return
     }

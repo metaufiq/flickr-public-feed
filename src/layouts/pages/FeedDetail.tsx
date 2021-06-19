@@ -5,8 +5,8 @@ import React, { useState } from 'react';
 import FeedType from "../../config/types/domain/FeedType";
 import BottomButtonCard from "../molecules/BottomButtonCard";
 import LikeButton from "../atom/LikeButton";
-import feedsService from "../../services/feedsService";
 import { useEffect } from "react";
+import favoriteFeedsService from "../../services/favoriteFeedsService";
 
 interface mainProps {
   navigation: StackNavigationProp<any, any>;
@@ -21,7 +21,7 @@ const FeedDetail = (props: mainProps) => {
     props.navigation.push('FlickrWebView', { link: feed.link })
   }
   const innit = async()=>{
-    const res = await feedsService.getFavoriteFeed(feed.link)
+    const res = await favoriteFeedsService.get(feed.link)
     if (res) {
       setLike(true)
     }
@@ -44,9 +44,9 @@ const FeedDetail = (props: mainProps) => {
   }
   const onLikeFeed = async () => {
     if (!like) {
-      await feedsService.saveFeeds(feed)      
+      await favoriteFeedsService.add(feed)  
     }else{
-      await feedsService.deleteFavoriteFeed(feed.link)
+      await favoriteFeedsService.remove(feed.link)
     }
     setLike((like) => !like)
   }

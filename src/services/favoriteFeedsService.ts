@@ -1,13 +1,7 @@
-import service from "../config/api";
 import DB from "../config/db";
 import FeedType from "../config/types/domain/FeedType";
 
-const publicPhotos = async (params: any)=>{
-    const res = await service.Feeds.get('photos_public.gne', { params });
-    return res.data; 
-}
-
-const saveFeeds = async (params: FeedType)=>{
+const add = async (params: FeedType)=>{
     const db = await DB.get()
 
     db.write(()=>{
@@ -16,7 +10,7 @@ const saveFeeds = async (params: FeedType)=>{
     return;
 }
 
-const getFavoriteFeed = async (link: FeedType['link']) =>{
+const get = async (link: FeedType['link']) =>{
     const db = await DB.get()
     const res = db.objectForPrimaryKey('FavoriteFeed', link)
     const data: {
@@ -30,7 +24,7 @@ const getFavoriteFeed = async (link: FeedType['link']) =>{
     return Object.keys(data).length === 0 ? undefined : data;
 }
 
-const deleteFavoriteFeed = async (link: FeedType['link']) => {
+const remove = async (link: FeedType['link']) => {
     const db = await DB.get()
     let res = db.objectForPrimaryKey('FavoriteFeed', link)
     db.write(()=>{
@@ -41,7 +35,7 @@ const deleteFavoriteFeed = async (link: FeedType['link']) => {
 }
 
 
-const favoriteFeeds = async ()=>{
+const list = async ()=>{
 
     const db = await DB.get()
     const res = db.objects('FavoriteFeed').map((feedRO)=>{
@@ -60,12 +54,11 @@ const favoriteFeeds = async ()=>{
 
 
 
-const feedsService = {
-    publicPhotos,
-    saveFeeds,
-    favoriteFeeds,
-    getFavoriteFeed,
-    deleteFavoriteFeed
+const favoriteFeedsService = {
+    remove,
+    add,
+    get,
+    list
 }
 
-export default feedsService
+export default favoriteFeedsService
