@@ -6,6 +6,7 @@ import FeedType from "../../config/types/domain/FeedType";
 import BottomButtonCard from "../molecules/BottomButtonCard";
 import LikeButton from "../atom/LikeButton";
 import feedsService from "../../services/feedsService";
+import { useEffect } from "react";
 
 interface mainProps {
   navigation: StackNavigationProp<any, any>;
@@ -15,12 +16,21 @@ const FeedDetail = (props: mainProps) => {
 
   const { feed } = props.route.params
   const [like, setLike] = useState(false);
-  const toHome = async () => {
-    props.navigation.push('BottomNavigation')
-  }
+
   const toFlickrWebView = async () => {
     props.navigation.push('FlickrWebView', { link: feed.link })
   }
+  const innit = async()=>{
+    const res = await feedsService.getFavoriteFeed(feed.link)
+    if (res) {
+      setLike(true)
+    }
+  }
+  useEffect(()=>{
+    innit()
+  },[])
+
+
   const getFormatedTags = () => {
     let result = ''
     if (feed.tags === '') {
@@ -32,14 +42,16 @@ const FeedDetail = (props: mainProps) => {
     });
     return result
   }
-  const onLikeFeed = async (like: boolean) => {
-    await feedsService.saveFeeds(feed)
-    const res = await feedsService.favoritesFeed()
-    console.log(res);
-    
+  const onLikeFeed = async () => {
+    if (!like) {
+      await feedsService.saveFeeds(feed)      
+    }else{
+      await feedsService.deleteFavoriteFeed(feed.link)
+    }
     setLike((like) => !like)
   }
   const tags = getFormatedTags();
+
   return (
     <View style={styles.mainContainer}>
       <ImageBackground source={{ uri: feed.media.m }} style={[styles.imageContainer]}>

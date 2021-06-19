@@ -16,8 +16,32 @@ const saveFeeds = async (params: FeedType)=>{
     return;
 }
 
+const getFavoriteFeed = async (link: FeedType['link']) =>{
+    const db = await DB.get()
+    const res = db.objectForPrimaryKey('FavoriteFeed', link)
+    const data: {
+        [key: string]: any
+    } = {}
+    if (res) {
+        res.entries().map((entry)=>{
+                data[entry[0]] = entry[1]
+        })
+    }
+    return Object.keys(data).length === 0 ? undefined : data;
+}
 
-const favoritesFeed = async ()=>{
+const deleteFavoriteFeed = async (link: FeedType['link']) => {
+    const db = await DB.get()
+    let res = db.objectForPrimaryKey('FavoriteFeed', link)
+    db.write(()=>{
+        db.delete(res)
+    })
+    res = undefined;
+    return;
+}
+
+
+const favoriteFeeds = async ()=>{
 
     const db = await DB.get()
     const res = db.objects('FavoriteFeed').map((feedRO)=>{
@@ -39,7 +63,9 @@ const favoritesFeed = async ()=>{
 const feedsService = {
     publicPhotos,
     saveFeeds,
-    favoritesFeed
+    favoriteFeeds,
+    getFavoriteFeed,
+    deleteFavoriteFeed
 }
 
 export default feedsService
