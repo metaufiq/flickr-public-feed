@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react'
+import React from 'react'
 import { ImageBackground, StyleSheet, TouchableOpacity, View } from "react-native"
 import { FlatGrid } from "react-native-super-grid"
 import FeedType from "../../config/types/domain/FeedType"
@@ -6,20 +6,15 @@ import HomeAppBar from "../organisms/home/HomeAppBar"
 
 interface mainProps {
   feeds: FeedType[];
-  getFeeds: Function;
+  getFeeds?: Function;
   onClickFeed: Function;
 }
 const Feeds = (props: mainProps) => {
 
 
-  
-
-  useEffect(() => {
-    props.getFeeds()
-  }, [])
   return (
     <View style={{ flex: 1 }}>
-      <HomeAppBar onRefresh={props.getFeeds} onSearch={props.getFeeds}></HomeAppBar>
+      {props.getFeeds && <HomeAppBar onRefresh={props.getFeeds} onSearch={props.getFeeds}></HomeAppBar>}
       <FlatGrid
         itemDimension={150}
         data={props.feeds}

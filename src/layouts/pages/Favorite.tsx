@@ -1,7 +1,8 @@
 import { RouteProp } from "@react-navigation/core"
 import { StackNavigationProp } from "@react-navigation/stack"
-import React, { useEffect, useState } from 'react'
+import React from 'react'
 import { StyleSheet } from "react-native"
+import { useQuery } from "react-query"
 import FeedType from "../../config/types/domain/FeedType"
 import favoriteFeedsService from "../../services/favoriteFeedsService"
 import Feeds from "../templates/Feeds"
@@ -12,23 +13,14 @@ interface mainProps {
 }
 const Favorite = (props: mainProps) => {
 
-  const [feeds, setFeeds] = useState<FeedType[]>([])
-  const getFeeds = async (tags: string = "") => {
-    const res = await favoriteFeedsService.list()
-    
-    setFeeds(res);
-  }
   
+  const FavoriteFeedsQuery = useQuery('favoriteFeeds', async ()=> await favoriteFeedsService.list())
   const toFeedDetail = async (feed: FeedType) => {
     props.navigation.push('FeedDetail', { feed })
   }
-  useEffect(() => {
-    getFeeds()
-  }, [])
   return (
     <Feeds
-      feeds={feeds}
-      getFeeds={getFeeds}
+      feeds={FavoriteFeedsQuery.data ?? []}
       onClickFeed={toFeedDetail}
     />
   )

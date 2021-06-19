@@ -1,11 +1,13 @@
-import {NavigationContainer} from '@react-navigation/native';
-import {createStackNavigator} from '@react-navigation/stack';
+import { NavigationContainer } from '@react-navigation/native';
+import { createStackNavigator } from '@react-navigation/stack';
 import React from 'react';
+import { QueryClient, QueryClientProvider } from 'react-query';
 import routes from './src/routes';
 const Stack = createStackNavigator();
-
+const queryClient = new QueryClient()
 const App = () => {
   return (
+    <QueryClientProvider client={queryClient} >
       <NavigationContainer>
         <Stack.Navigator>
 
@@ -21,6 +23,7 @@ const App = () => {
             ))}
         </Stack.Navigator>
       </NavigationContainer>
+    </QueryClientProvider>
   );
 };
 export default App;

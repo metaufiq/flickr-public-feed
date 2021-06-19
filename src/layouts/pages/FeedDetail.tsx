@@ -1,12 +1,12 @@
 import { RouteProp } from "@react-navigation/core";
 import { StackNavigationProp } from "@react-navigation/stack";
-import { ImageBackground,  StyleSheet, Text, View } from "react-native"
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
+import { ImageBackground, StyleSheet, Text, View } from "react-native";
+import { useQueryClient } from "react-query";
 import FeedType from "../../config/types/domain/FeedType";
-import BottomButtonCard from "../molecules/BottomButtonCard";
-import LikeButton from "../atom/LikeButton";
-import { useEffect } from "react";
 import favoriteFeedsService from "../../services/favoriteFeedsService";
+import LikeButton from "../atom/LikeButton";
+import BottomButtonCard from "../molecules/BottomButtonCard";
 
 interface mainProps {
   navigation: StackNavigationProp<any, any>;
@@ -16,7 +16,7 @@ const FeedDetail = (props: mainProps) => {
 
   const { feed } = props.route.params
   const [like, setLike] = useState(false);
-
+  const queryClient = useQueryClient();
   const toFlickrWebView = async () => {
     props.navigation.push('FlickrWebView', { link: feed.link })
   }
@@ -44,9 +44,11 @@ const FeedDetail = (props: mainProps) => {
   }
   const onLikeFeed = async () => {
     if (!like) {
-      await favoriteFeedsService.add(feed)  
+      await favoriteFeedsService.add(feed) 
+      queryClient.invalidateQueries('favoriteFeeds')
     }else{
       await favoriteFeedsService.remove(feed.link)
+      queryClient.invalidateQueries('favoriteFeeds')
     }
     setLike((like) => !like)
   }
