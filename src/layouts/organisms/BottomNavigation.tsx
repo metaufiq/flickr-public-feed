@@ -1,9 +1,9 @@
-import {createMaterialBottomTabNavigator, MaterialBottomTabNavigationOptions, MaterialBottomTabNavigationProp} from '@react-navigation/material-bottom-tabs';
-import React, {ComponentClass, FunctionComponent} from 'react';
-import Foundation from 'react-native-vector-icons/Foundation';
-import AntDesign from 'react-native-vector-icons/AntDesign';
-import Home from '../layouts/pages/Home';
+import { createMaterialBottomTabNavigator, MaterialBottomTabNavigationOptions } from '@react-navigation/material-bottom-tabs';
+import React, { ComponentClass, FunctionComponent } from 'react';
 import { withTheme } from 'react-native-paper';
+import AntDesign from 'react-native-vector-icons/AntDesign';
+import Foundation from 'react-native-vector-icons/Foundation';
+import Home from '../pages/Home';
 
 interface BottomBarRoute {
   name: string;
