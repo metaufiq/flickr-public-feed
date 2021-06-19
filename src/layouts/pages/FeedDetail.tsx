@@ -5,6 +5,7 @@ import React, { useState } from 'react';
 import FeedType from "../../config/types/domain/FeedType";
 import BottomButtonCard from "../molecules/BottomButtonCard";
 import LikeButton from "../atom/LikeButton";
+import feedsService from "../../services/feedsService";
 
 interface mainProps {
   navigation: StackNavigationProp<any, any>;
@@ -31,7 +32,11 @@ const FeedDetail = (props: mainProps) => {
     });
     return result
   }
-  const onLikeFeed = (like: boolean) => {
+  const onLikeFeed = async (like: boolean) => {
+    await feedsService.saveFeeds(feed)
+    const res = await feedsService.favoritesFeed()
+    console.log(res);
+    
     setLike((like) => !like)
   }
   const tags = getFormatedTags();
