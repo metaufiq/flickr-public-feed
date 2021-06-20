@@ -3,7 +3,7 @@ import { Fragment } from 'react'
 import { ImageBackground, StyleSheet, TouchableOpacity, View } from "react-native"
 import { FlatGrid } from "react-native-super-grid"
 import FeedType from "../../config/types/domain/FeedType"
-import HomeAppBar from "./home/HomeAppBar"
+import AppBar1 from "./AppBar1"
 
 interface mainProps {
   feeds: FeedType[];

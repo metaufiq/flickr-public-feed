@@ -1,13 +1,14 @@
 import { StyleSheet, Text, View } from "react-native"
 import React, { useRef } from 'react'
-import RefreshButton from "../../atom/RefreshButton"
+import RefreshButton from "../atom/RefreshButton"
 interface mainProps {
+    title: string
 }
-const FavoriteAppBar = (props: mainProps) => {
+const AppBar2 = (props: mainProps) => {
 
     return (
         <View style={styles.mainContainer}>
-                <Text style={{ color: 'white', fontSize: 20, alignSelf: 'center', }}>Favorite Flickr</Text>
+                <Text style={{ color: 'white', fontSize: 20, alignSelf: 'center', }}>{props.title}</Text>
         </View>
     )
 }
@@ -22,4 +23,4 @@ const styles = StyleSheet.create({
     },
 })
 
-export default FavoriteAppBar;
+export default AppBar2;

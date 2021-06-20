@@ -5,7 +5,7 @@ import { StyleSheet, View } from "react-native"
 import { useQuery } from "react-query"
 import FeedType from "../../config/types/domain/FeedType"
 import favoriteFeedsService from "../../services/favoriteFeedsService"
-import FavoriteAppBar from "../organisms/favorite/FavoriteAppBar"
+import AppBar2 from "../organisms/AppBar2"
 import Feeds from "../organisms/Feeds"
 
 interface mainProps {
@@ -21,7 +21,7 @@ const Favorite = (props: mainProps) => {
   }
   return (
     <View style={styles.mainContainer}>
-      <FavoriteAppBar/>
+      <AppBar2 title="Favorite Feeds"/>
       <Feeds
         feeds={FavoriteFeedsQuery.data ?? []}
         onClickFeed={toFeedDetail}

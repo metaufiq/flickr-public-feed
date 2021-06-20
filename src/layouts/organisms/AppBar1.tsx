@@ -1,12 +1,14 @@
+import React from 'react'
 import { StyleSheet, Text, View } from "react-native"
-import React, { useRef } from 'react'
-import RefreshButton from "../../atom/RefreshButton"
+import { Title } from 'react-native-paper'
 import Search from "react-native-search-box"
+import RefreshButton from "../atom/RefreshButton"
 interface mainProps {
-    onRefresh: Function
-    onSearch: Function
+    onRefresh: Function,
+    onSearch: Function,
+    title: string
 }
-const HomeAppBar = (props: mainProps) => {
+const AppBar1 = (props: mainProps) => {
 
     // Important: You must return a Promise
     const onSearch = async (searchText:string) => {
@@ -19,7 +21,7 @@ const HomeAppBar = (props: mainProps) => {
         <View>
             <View style={styles.mainContainer}>
                 <View style={styles.containerLeft}>
-                    <Text style={{color:'white', fontSize: 20}}>Public Flickr</Text>
+                    <Title style={{color:'white'}}>{props.title}</Title>
                 </View>
                 <View style={styles.containerRight}>
                     <RefreshButton onRefresh={props.onRefresh}></RefreshButton>
@@ -43,7 +45,6 @@ const styles = StyleSheet.create({
     containerRight: {
         alignSelf: 'flex-end',
         flex: 1,
-        paddingTop:5,
     },
     containerLeft: {
         alignSelf: 'flex-start',
@@ -54,4 +55,4 @@ const styles = StyleSheet.create({
     }
 })
 
-export default HomeAppBar;
+export default AppBar1;

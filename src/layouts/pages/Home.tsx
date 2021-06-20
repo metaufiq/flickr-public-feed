@@ -4,7 +4,7 @@ import React, { useEffect, useState } from 'react'
 import { StyleSheet, View } from "react-native"
 import FeedType from "../../config/types/domain/FeedType"
 import publicFeedsService from "../../services/publicFeedsService"
-import HomeAppBar from "../organisms/home/HomeAppBar"
+import AppBar1 from "../organisms/AppBar1"
 import Feeds from "../organisms/Feeds"
 
 interface mainProps {
@@ -32,7 +32,7 @@ const Home = (props: mainProps) => {
   }, [])
   return (
     <View style={styles.mainContainer}>
-      <HomeAppBar onRefresh={getFeeds} onSearch={getFeeds}></HomeAppBar>
+      <AppBar1 onRefresh={getFeeds} onSearch={getFeeds} title="Public Feeds"></AppBar1>
       <Feeds
         feeds={feeds}
         onClickFeed={toFeedDetail}
