@@ -4,8 +4,8 @@ import { Title } from 'react-native-paper'
 import Search from "react-native-search-box"
 import RefreshButton from "../atom/RefreshButton"
 interface mainProps {
-    onRefresh: Function,
-    onSearch: Function,
+    onRefresh?: Function,
+    onSearch?: Function,
     title: string
 }
 const AppBar1 = (props: mainProps) => {
@@ -13,8 +13,10 @@ const AppBar1 = (props: mainProps) => {
     // Important: You must return a Promise
     const onSearch = async (searchText:string) => {
         return await new Promise((resolve, reject) => {
-            props.onSearch(searchText)
-            resolve(true);
+            if (props.onSearch) {
+                props.onSearch(searchText)
+                resolve(true);                
+            }
         });
     }
     return (
@@ -23,14 +25,14 @@ const AppBar1 = (props: mainProps) => {
                 <View style={styles.containerLeft}>
                     <Title style={{color:'white'}}>{props.title}</Title>
                 </View>
-                <View style={styles.containerRight}>
+                {props.onRefresh && <View style={styles.containerRight}>
                     <RefreshButton onRefresh={props.onRefresh}></RefreshButton>
-                </View>
+                </View>}
             </View>
-            <Search
+            {props.onSearch && <Search
                 onSearch={onSearch}
                 backgroundColor="#212123"
-            />
+            />}
         </View>
     )
 }
