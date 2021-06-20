@@ -1,14 +1,31 @@
+import React from 'react'
 import { StyleSheet, Text, View } from "react-native"
-import React, { useRef } from 'react'
-import RefreshButton from "../atom/RefreshButton"
+import Search from "react-native-search-box"
+
 interface mainProps {
-    title: string
+    title: string,
+    onSearch?: Function
 }
 const AppBar2 = (props: mainProps) => {
 
+    // Important: You must return a Promise
+    const onSearch = async (searchText: string) => {
+        return await new Promise((resolve, reject) => {
+            if (props.onSearch) {
+                props.onSearch(searchText)
+                resolve(true);
+            }
+        });
+    }
     return (
-        <View style={styles.mainContainer}>
+        <View>
+            <View style={styles.mainContainer}>
                 <Text style={{ color: 'white', fontSize: 20, alignSelf: 'center', }}>{props.title}</Text>
+            </View>
+            {props.onSearch && <Search
+                onSearch={onSearch}
+                backgroundColor="#212123"
+            />}
         </View>
     )
 }
